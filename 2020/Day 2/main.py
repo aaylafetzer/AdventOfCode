@@ -17,6 +17,7 @@
 
 import argparse
 import os
+import re
 
 # Take the path to the puzzle input as an argument
 parser = argparse.ArgumentParser()
@@ -32,39 +33,31 @@ with open(args.input, "r") as inputFile:
 
 # A sample password is:
 # 3-4 v: vvmv
-# This is 3 parts, space-separated. 
-# ["3-4", "v:", "vvmv"]
-# The first element is a range, the second element is the char that needs
-# to be in that range, and the third is the password itself.
+# This is 4 parts. 
+# ["3", "4", "v", "vvmv"]
+# The first element is the low end of a range, the second element is the high end,
+# the third element is the char to search the fourth element (given password) for.
 
-# Split the inputs into their 3 parts
-inputs = [item.split() for item in inputData]
-for i in range(len(inputs)):
-    # Split the first part
-    inputs[i][0] = inputs[i][0].split("-")
-    # Strip the colon from the second part
-    inputs[i][1] = inputs[i][1][:-1]
+# Define regular expression. Expression adapted from @wundrweapon
+# https://github.com/wundrweapon/aoc-2020/blob/master/day2-2.lua
+expression = re.compile("^(\d+)-(\d+) (\w): (\w+)$")
 
+valid_passwords_1 = []
+valid_passwords_2 = []
+for item in inputData:
+    low, high, char, pw = expression.findall(item)[0]
+    # Convert to int
+    low = int(low) - 1
+    high = int(high) - 1
 
-# Part 1, Terrible
-valid = [
-    item for item in inputs if 
-        (item[2].count(item[1]) >= int(item[0][0]) and item[2].count(item[1]) <= int(item[0][1]))
-    ]
-print(f"There are {len(valid)} valid passwords for Part 1")
+    # Part 1
+    count = pw.count(char)
+    if low <= count <= high:
+        valid_passwords_1.append(pw)
+    
+    # Part 2
+    if (pw[low] == char) ^ (pw[high] == pw):
+        valid_passwords_2.append(pw)
 
-
-# Part 2, Not as bad as Part 1, but still terrible
-valid = []
-for item in inputs:
-    passing = False
-    for pos in item[0]: # For each position to test
-        if item[2][int(pos) - 1] == item[1]: # Test the position
-            if passing == False: # If the input was not yet passing, it is now
-                passing = True
-            else: # If the input was already passing, but both positions contain the letter, it fails and breaks
-                passing = False
-                break
-    if passing == True: # If the input is still passing, add it to the list of valid passwords
-        valid.append(item)
-print(f"There are {len(valid)} valid passwords for Part 2")
+print(f"There are {len(valid_passwords_1)} valid passwords for Part 1")
+print(f"There are {len(valid_passwords_2)} valid passwords for Part 2")
