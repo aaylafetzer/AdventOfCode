@@ -18,4 +18,4 @@
 -->
 
 # Advent Of Code
-This repository houses my [Advent of Code](https://adventofcode.com/2020/day/1) puzzle solutions
+This repository houses my [Advent of Code](https://adventofcode.com/) puzzle solutions
