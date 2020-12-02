@@ -39,7 +39,7 @@ with open(args.input, "r") as inputFile:
 # the third element is the char to search the fourth element (given password) for.
 
 # Define regular expression. Expression adapted from @wundrweapon
-# https://github.com/wundrweapon/aoc-2020/blob/master/day2-2.lua
+# https://github.com/wundrweapon/aoc-2020/blob/c0feca25bbc2ced2f50f310f95b9b11fa0954af0/day2-2.lua#L4
 expression = re.compile("^(\d+)-(\d+) (\w): (\w+)$")
 
 valid_passwords_1 = []
