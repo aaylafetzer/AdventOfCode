@@ -40,9 +40,10 @@ for item in inputData:
         print(f"The product of the two numbers is {item * (2020 - item)}")
         break
 
-# Part two (very bad)
+# Part two (very bad, but I don't have the math capabilities to make something better)
+# Create an iterator of every unique input combination of length n
 inputCombinations = itertools.combinations(inputData, args.n)
-# Find 2020
+# Find 2020 by iterating
 for combination in inputCombinations:
     if sum(combination) == 2020:
         print(f"The combination for 2020 with n={args.n} is {combination}")
