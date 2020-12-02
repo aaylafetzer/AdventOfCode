@@ -56,7 +56,7 @@ for item in inputData:
         valid_passwords_1.append(pw)
     
     # Part 2
-    if (pw[low] == char) ^ (pw[high] == pw):
+    if (pw[low] == char) ^ (pw[high] == char):
         valid_passwords_2.append(pw)
 
 print(f"There are {len(valid_passwords_1)} valid passwords for Part 1")
