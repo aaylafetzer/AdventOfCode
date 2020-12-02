@@ -28,23 +28,28 @@ args = parser.parse_args()
 
 # Ensure that the user has provided a real path
 assert os.path.exists(args.input)
+# Assert there's actually something to do
+assert args.n >= 2
 
 with open(args.input, "r") as inputFile:
     # Read puzzle input from file
     inputData = [int(item.strip()) for item in inputFile.readlines()]
 
-# Find the combination that sums to 2020
-for item in inputData:
-    if (2020 - item) in inputData:
-        print(f"The two numbers are {item} and {(2020 - item)}")
-        print(f"The product of the two numbers is {item * (2020 - item)}")
-        break
+# Part 1 Solution
+# Find the combination that sums to 2020.
+if args.n == 2:
+    for item in inputData:
+        if (2020 - item) in inputData:
+            print(f"The two numbers are {item} and {(2020 - item)}")
+            print(f"The product of the two numbers is {item * (2020 - item)}")
+            break
 
-# Part two (very bad, but I don't have the math capabilities to make something better)
+# Part 2 Solution (very bad, but I don't have the math capabilities to make something better)
 # Create an iterator of every unique input combination of length n
-inputCombinations = itertools.combinations(inputData, args.n)
-# Find 2020 by iterating
-for combination in inputCombinations:
-    if sum(combination) == 2020:
-        print(f"The combination for 2020 with n={args.n} is {combination}")
-        print(f"The product of {combination} is {np.product(combination)}")
+if args.n > 2:
+    inputCombinations = itertools.combinations(inputData, args.n)
+    # Find 2020 by iterating
+    for combination in inputCombinations:
+        if sum(combination) == 2020:
+            print(f"The combination for 2020 with n={args.n} is {combination}")
+            print(f"The product of {combination} is {np.product(combination)}")
