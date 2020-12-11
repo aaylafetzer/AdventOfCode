@@ -40,9 +40,7 @@ class Passport:
                 (int(x[:-2]) >= 150 and int(x[:-2]) <= 193) 
                 if x[-2:] == "cm" else
                 (int(x[:-2]) >= 59 and int(x[:-2]) <= 76)
-            )    (int(x[:-2]) >= 150 and int(x[:-2]) <= 193) 
-                if x[-2:] == "cm" else
-                (int(x[:-2]) >= 59 and int(x[:-2]) <= 76)
+            )
         ),
         "hcl": lambda x: (len(x[1:]) == 6 and all(c in string.hexdigits for c in x[1:])),
         "ecl": lambda x: (x in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]),
